@@ -33,13 +33,13 @@ calc_hmix <- function(temps, depths, min.dT = 1,
     i1 <- which.min(dTdz) # index of strongest gradient (-ve for positive strat, +ve for winter strat)
     i2 <- which.min(d2Tdz2) # i2+1 is index of minimum curvature (bot epilimnion)
     if(max(head(depths,-1))<=min.hmix) {
-        # only the deepest layer is deep enough to be a candidate, and we can't compute the curvature at an endpoint, so we declare it the winner just like we can't do comparative assessments and debates if only one person is a candidate to be president.  This assumes a check was made earlier that the deepest layer is at least min.hmix deep...?
-    i2 <-length(depths)-1 % # remember that i2+1 is the index of depths that corresponds to minimum curvature
-    } else{
-    while(depths[i2+1] <= min.hmix) {
-      d2Tdz2[i2] <- NA
-      i2 <- which.min(d2Tdz2)
-    }}
+      i2 <-length(depths)-1
+    } else {
+      while(depths[i2+1] <= min.hmix) {
+        d2Tdz2[i2] <- NA
+        i2 <- which.min(d2Tdz2)
+      }
+    }
     while(i1 <= i2) {
       dTdz[i1] <- NA
       i1 <- which.min(dTdz)
